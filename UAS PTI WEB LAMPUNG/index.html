@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lampung | Kelompok 2 PTI Kelas H</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+
+    <style>
+        .navbar {
+            padding: 1rem 2rem;
+            font-size: 1.5rem;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .navbar-brand img {
+            max-height: 100%;
+            margin-right: 10px;
+        }
+
+        .navbar-brand-text {
+            margin-left: 10px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .navbar-nav .nav-link {
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link.wisata {
+            margin-right: 60px;
+        }
+
+        .navbar-nav .nav-link.sejarah {
+            margin-right: 60px;
+        }
+
+        .navbar-nav .nav-link.pemerintahan {
+            margin-right: 40px;
+        }
+
+        .navbar-nav .nav-link.about {
+            margin-right: 60px;
+        }
+
+        body {
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Times New Roman', Times, serif;
+            transition: background-image 0.5s ease; 
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -1; 
+        }
+
+        .content {
+            text-align: left;
+            margin-top: 10%; 
+            color: #fff;
+            padding: 0 20px;
+            position: relative; 
+            z-index: 1; 
+        }
+
+        h1 {
+            font-size: 6rem; 
+            font-weight: bold;
+            margin-left: 160px;
+            margin-top: 30px; 
+        }
+
+        p {
+            font-size: 3rem; 
+            margin-left: 160px;
+        }
+
+        h3 {
+            font-size: 2.5rem; 
+            margin-bottom: 10px;
+            margin-left: 160px;
+            margin-top: 10px; 
+        }
+
+        .btn-mulai {
+            display: none;
+        }
+
+        .panah {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #000;
+            z-index: 9999;
+            font-family: 'Roboto', sans-serif; 
+        }
+
+        .panah-kiri {
+            left: 20px;
+        }
+
+        .panah-kanan {
+            right: 20px;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .content {
+                margin-top: 5%; 
+            }
+            h1 {
+                font-size: 4rem; 
+                margin-left: 20px; 
+                margin-top: 20px; 
+            }
+            p {
+                font-size: 2rem; 
+                margin-left: 20px; 
+            }
+            h3 {
+                font-size: 1.5rem; 
+                margin-left: 20px;
+                margin-top: 10px; 
+            }
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -1;
+            transition: opacity 0.2s ease;
+            opacity: 1; 
+        }
+
+        .video-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 600px; 
+            max-width: 800px;
+            height: auto; 
+        }
+
+        .video-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .video-item {
+            position: relative;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .video-item.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .video-item iframe {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+        }
+
+        .video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        #jamDigital {
+            color: white;
+            font-size: 4rem;
+            position: fixed;
+            top: 700px; /* Positioning the clock at the top */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999; /* Ensure clock appears above other content */
+        }
+
+        /* CSS untuk loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgb(128, 128, 128); /* Ubah opacity menjadi 0.7 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Pastikan loading screen muncul di atas konten lain */
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loading-logo {
+            height: 100px; /* Sesuaikan ukuran logo jika perlu */
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            font-size: 24px; /* Sesuaikan ukuran font jika perlu */
+            margin-bottom: 20px;
+        }
+
+        .spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner div {
+            width: 10px; 
+            height: 10px; 
+            background-color: white;
+            border-radius: 50%;
+            margin: 3px;
+            animation: bounce 0.6s infinite alternate;
+        }
+
+        @keyframes bounce {
+            to {
+                transform: translateY(-15px);
+            }
+        }
+
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="Lampung_coa.png" alt="Logo" height="40">
+                <span class="navbar-brand-text">Lampung</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link wisata" href="wisata.html">Wisata</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pemerintahan" href="pemerintahan.html">Pemerintahan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link about" href="about.html">About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="background"></div>
+    <div id="jamDigital"></div>
+
+    <div class="content">
+        <h1 id="main-title">K o t a  L a m p u n g</h1>
+        <p id="main-text">M e l a y a n i  M a s y a r a k a t</p>
+        <h3 id="main-subtitle">"Sang Bumi Ruwa Jurai"</h3>
+    </div>
+
+    
+
+    <div class="panah panah-kiri">&lt;</div>
+    <div class="panah panah-kanan">&gt;</div>
+
+    <div class="video-container">
+        <div class="video-item active">
+            <iframe id="video1" src="https://www.youtube.com/embed/ic5x9qH7aGI?mute=1" frameborder="0" allowfullscreen></iframe>
+            <div class="video-caption">https://youtu.be/ic5x9qH7aGI?si=n0FfTHQyL-aIdszC</div>
+        </div>
+        <div class="video-item">
+            <iframe id="video2" src="https://www.youtube.com/embed/D31P44Hue0Q?mute=1" frameborder="0" allowfullscreen></iframe>
+            <div class="video-caption">https://youtu.be/D31P44Hue0Q?si=d-E24gZ_dTer8HjU</div>
+        </div>
+        <div class="video-item">
+            <iframe id="video3" src="https://www.youtube.com/embed/2raI3eFuDHA?mute=1" frameborder="0" allowfullscreen></iframe>
+            <div class="video-caption">https://youtu.be/2raI3eFuDHA?si=3UHsbaTWWtlvY_zZ</div>
+        </div>
+    </div>
+    
+    <div class="loading-screen">
+        <div class="loading-content">
+            <img src="Lampung_coa.png" alt="Lampung Logo" class="loading-logo">
+            <div class="loading-text">LAMPUNG</div>
+            <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var backgrounds = [
+            'url("WhatsApp Image 2024-05-13 at 9.00.13 AM (1).jpeg")',
+            'url("WhatsApp Image 2024-05-13 at 9.00.12 AM (2).jpeg")',
+            'url("WhatsApp Image 2024-05-13 at 9.00.12 AM.jpeg")'
+        ];
+
+        var currentBackgroundIndex = 0;
+        var background = document.querySelector('.background');
+        var videoContainer = document.querySelector('.video-container');
+        var mainTitle = document.getElementById('main-title');
+        var mainText = document.getElementById('main-text');
+        var mainSubtitle = document.getElementById('main-subtitle');
+        var jamDigital = document.getElementById('jamDigital'); 
+
+        function changeBackground(index) {
+            background.style.opacity = 0;
+            setTimeout(function() {
+                background.style.backgroundImage = backgrounds[index];
+                background.style.opacity = 1;
+
+                var videos = videoContainer.querySelectorAll('.video-item');
+                videos.forEach(function(video) {
+                    video.classList.add('active');
+                });
+
+                videos.forEach(function(video) {
+                    video.querySelector('iframe').src += "&autoplay=1";
+                });
+
+                videos.forEach(function(video) {
+                    var iframe = video.querySelector('iframe');
+                    iframe.style.width = '100%'; 
+                    iframe.style.height = '350px'; 
+                });
+            }, 200);
+        }
+
+        function toggleContentVisibility(show) {
+            mainTitle.style.display = show ? 'block' : 'none';
+            mainText.style.display = show ? 'block' : 'none';
+            mainSubtitle.style.display = show ? 'block' : 'none';
+            videoContainer.style.display = show ? 'none' : 'flex';
+        }
+
+        document.querySelector('.panah-kanan').addEventListener('click', function () {
+            currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
+            changeBackground(currentBackgroundIndex);
+            toggleContentVisibility(videoContainer.style.display === 'flex');
+
+            if (currentBackgroundIndex === 2) {
+                jamDigital.style.display = 'block';
+            } else {
+                jamDigital.style.display = 'none';
+            }
+        });
+
+        document.querySelector('.panah-kiri').addEventListener('click', function () {
+            currentBackgroundIndex = (currentBackgroundIndex - 1 + backgrounds.length) % backgrounds.length;
+            changeBackground(currentBackgroundIndex);
+            toggleContentVisibility(videoContainer.style.display === 'flex');
+            if (currentBackgroundIndex === 2) {
+                jamDigital.style.display = 'block';
+            } else {
+                jamDigital.style.display = 'none';
+            }
+        });
+
+        changeBackground(currentBackgroundIndex);
+
+        setInterval(updateClock, 1000);
+        function updateClock() {
+            var now = new Date();
+            var jam = now.getHours();
+            var menit = now.getMinutes();
+            var detik = now.getSeconds();
+
+            jam = (jam < 10 ? "0" : "") + jam;
+            menit = (menit < 10 ? "0" : "") + menit;
+            detik = (detik < 10 ? "0" : "") + detik;
+
+            jamDigital.innerHTML = jam + ":" + menit + ":" + detik;
+        }
+         function showLoadingScreen() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            loadingScreen.style.display = 'flex';
+        }
+        function hideLoadingScreen() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            loadingScreen.style.display = 'none';
+        }
+
+        window.addEventListener('load', function() {
+            hideLoadingScreen(); 
+        });
+
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(function(link) {
+            link.addEventListener('click', function() {
+                showLoadingScreen();
+            });
+        });
+
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>
